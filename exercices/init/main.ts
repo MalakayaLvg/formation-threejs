@@ -8,7 +8,9 @@ import {
   GridHelper,
   PCFShadowMap,
   PerspectiveCamera,
+  Raycaster,
   Scene,
+  Vector2,
   WebGLRenderer,
 } from "three";
 import { Cube } from "./Cube";
@@ -25,6 +27,8 @@ class App {
   ground!: Ground;
   gui!: dat.GUI;
   controls!: OrbitControls;
+  mouse!: Vector2;
+  raycaster!: Raycaster;
 
   constructor(canvas: HTMLCanvasElement) {
     this.onResize = this.onResize.bind(this);
@@ -39,6 +43,7 @@ class App {
     }
     this.initLights();
     this.initObjects();
+    this.selectObjects();
     this.animate();
 
     window.addEventListener("resize", this.onResize);
@@ -102,6 +107,20 @@ class App {
     this.scene.add(this.cube.mesh);
     this.ground = new Ground(this.gui);
     this.scene.add(this.ground.mesh);
+  }
+
+  selectObjects() {
+    this.mouse = new Vector2();
+    window.addEventListener("click", (event) => {
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      this.raycaster = new Raycaster();
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+      const intersects = this.raycaster.intersectObjects([this.cube.mesh]);
+      if (intersects.length > 0) {
+        console.log("cube touché!");
+      }
+    });
   }
 
   initGUI() {

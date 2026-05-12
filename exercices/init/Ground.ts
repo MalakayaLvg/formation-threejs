@@ -8,24 +8,27 @@ import {
 export class Ground {
   mesh: Mesh;
   gui!: dat.GUI;
+  material!: MeshStandardMaterial;
 
   constructor(gui?: dat.GUI) {
     const geometry = new PlaneGeometry(3, 3);
-    const loader = new TextureLoader();
-    const texture = loader.load("./motel.jpg");
-    const material = new MeshStandardMaterial({
-      //   color: 0xff0000,
-      map: texture,
-    });
-
-    this.mesh = new Mesh(geometry, material);
+    this.material = new MeshStandardMaterial();
+    this.mesh = new Mesh(geometry, this.material);
     this.mesh.rotation.x = -Math.PI / 2;
     this.mesh.receiveShadow = true;
+
+    this.initTexture();
 
     if (import.meta.env.VITE_ENVIRONMENT == "development" && gui) {
       this.gui = gui;
       this.initGUI();
     }
+  }
+
+  initTexture() {
+    const loader = new TextureLoader();
+    const texture = loader.load("./motel.jpg");
+    this.material.map = texture;
   }
 
   initGUI() {

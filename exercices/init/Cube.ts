@@ -27,4 +27,10 @@ export class Cube {
   initGUI() {
     this.gui.add(this.mesh.position, "y").min(0).max(5).step(0.1);
   }
+
+  animate() {
+    this.mesh.rotation.x += 0.01;
+    this.mesh.rotation.y += 0.01;
+    this.mesh.rotation.z += 0.01;
+  }
 }

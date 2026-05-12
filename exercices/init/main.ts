@@ -130,6 +130,8 @@ class App {
   animate() {
     this.renderer.render(this.scene, this.camera);
     this.controls.update();
+    /* objects animation */
+    this.cube.animate();
     requestAnimationFrame(this.animate);
   }
 

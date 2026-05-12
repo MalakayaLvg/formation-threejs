@@ -25,6 +25,7 @@ class App {
   gui!: dat.GUI;
 
   constructor(canvas: HTMLCanvasElement) {
+    this.onResize = this.onResize.bind(this);
     this.animate = this.animate.bind(this);
     this.canvas = canvas;
     this.initRenderer();
@@ -37,6 +38,8 @@ class App {
     this.initLights();
     this.initObjects();
     this.animate();
+
+    window.addEventListener("resize", this.onResize);
   }
 
   initRenderer() {
@@ -98,6 +101,12 @@ class App {
   animate() {
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.animate);
+  }
+
+  onResize() {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 }
 

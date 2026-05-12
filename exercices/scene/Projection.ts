@@ -1,5 +1,6 @@
 import {
   Mesh,
+  MeshBasicMaterial,
   MeshStandardMaterial,
   PlaneGeometry,
   TextureLoader,
@@ -12,7 +13,7 @@ export class Projection {
   constructor(gui?: dat.GUI) {
     const height = 2;
     const geometry = new PlaneGeometry(3, height);
-    const material = new MeshStandardMaterial();
+    const material = new MeshBasicMaterial();
     this.mesh = new Mesh(geometry, material);
     this.mesh.position.y = height / 2;
     this.mesh.position.z = -2;

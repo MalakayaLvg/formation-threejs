@@ -14,6 +14,7 @@ import {
 import { Cube } from "./Cube";
 import * as dat from "dat.gui";
 import { Ground } from "./Ground";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 class App {
   canvas: HTMLCanvasElement;
@@ -23,6 +24,7 @@ class App {
   cube!: Cube;
   ground!: Ground;
   gui!: dat.GUI;
+  controls!: OrbitControls;
 
   constructor(canvas: HTMLCanvasElement) {
     this.onResize = this.onResize.bind(this);
@@ -40,6 +42,10 @@ class App {
     this.animate();
 
     window.addEventListener("resize", this.onResize);
+    // Retirer le zoom
+    this.renderer.domElement.addEventListener("wheel", (e) => {
+      e.preventDefault();
+    });
   }
 
   initRenderer() {
@@ -62,6 +68,10 @@ class App {
       200,
     );
     this.camera.position.set(0, 2, 7);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.minAzimuthAngle = 0;
+    this.controls.maxAzimuthAngle = 0;
+    this.controls.enableZoom = false;
   }
 
   initScene() {
@@ -100,6 +110,7 @@ class App {
 
   animate() {
     this.renderer.render(this.scene, this.camera);
+    this.controls.update();
     requestAnimationFrame(this.animate);
   }
 

@@ -25,8 +25,10 @@ class App {
     this.initRenderer();
     this.initCamera();
     this.initScene();
-    this.initHelpers();
-    this.initGUI();
+    if (import.meta.env.VITE_ENVIRONMENT == "development") {
+      this.initHelpers();
+      this.initGUI();
+    }
     this.initObjects();
     this.animate();
   }

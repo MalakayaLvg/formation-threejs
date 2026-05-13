@@ -17,6 +17,7 @@ import { Cube } from "./Cube";
 import * as dat from "dat.gui";
 import { Ground } from "./Ground";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
+import gsap from "gsap";
 
 class App {
   canvas: HTMLCanvasElement;
@@ -110,6 +111,7 @@ class App {
   }
 
   selectObjects() {
+    let rotation = 0;
     this.mouse = new Vector2();
     window.addEventListener("click", (event) => {
       this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -118,7 +120,8 @@ class App {
       this.raycaster.setFromCamera(this.mouse, this.camera);
       const intersects = this.raycaster.intersectObjects([this.cube.mesh]);
       if (intersects.length > 0) {
-        console.log("cube touché!");
+        rotation += Math.PI * 2;
+        gsap.to(this.cube.mesh.rotation, { duration: 1, y: rotation });
       }
     });
   }

@@ -12,14 +12,14 @@ export class Cylinder {
     this.mesh.position.set(x, height / 2, z);
     this.mesh.castShadow = true;
 
-    // if (import.meta.env.VITE_ENVIRONMENT == "development" && gui) {
-    //   this.gui = gui;
-    //   this.initGUI();
-    // }
+    if (import.meta.env.VITE_ENVIRONMENT == "development" && gui) {
+      this.gui = gui;
+      this.initGUI();
+    }
   }
 
   initGUI() {
-    this.gui.add(this.mesh.position, "x").min(-5).max(5).step(0.1);
-    this.gui.add(this.mesh.position, "z").min(-5).max(5).step(0.1);
+    // this.gui.add(this.mesh.position, "x").min(-5).max(5).step(0.1);
+    // this.gui.add(this.mesh.position, "z").min(-5).max(5).step(0.1);
   }
 }

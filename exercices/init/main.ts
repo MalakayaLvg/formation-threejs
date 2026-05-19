@@ -96,7 +96,7 @@ class App {
 
     this.perf = new ThreePerf({
       anchorX: "left",
-      anchorY: "top",
+      anchorY: "bottom",
       domElement: document.body,
       renderer: this.renderer,
     });

@@ -19,6 +19,7 @@ import { Ground } from "./Ground";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 import gsap from "gsap";
 import { ThreePerf } from "three-perf";
+import { Panda } from "./Panda";
 
 class App {
   canvas: HTMLCanvasElement;
@@ -32,6 +33,7 @@ class App {
   mouse!: Vector2;
   raycaster!: Raycaster;
   perf!: ThreePerf;
+  panda!: Panda;
 
   constructor(canvas: HTMLCanvasElement) {
     this.onResize = this.onResize.bind(this);
@@ -96,7 +98,7 @@ class App {
 
     this.perf = new ThreePerf({
       anchorX: "left",
-      anchorY: "top",
+      anchorY: "bottom",
       domElement: document.body,
       renderer: this.renderer,
     });
@@ -114,9 +116,11 @@ class App {
 
   initObjects() {
     this.cube = new Cube(this.gui);
-    this.scene.add(this.cube.mesh);
+    // this.scene.add(this.cube.mesh);
     this.ground = new Ground(this.gui);
     this.scene.add(this.ground.mesh);
+    this.panda = new Panda();
+    this.scene.add(this.panda.mesh);
   }
 
   selectObjects() {
